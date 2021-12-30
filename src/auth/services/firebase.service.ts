@@ -61,13 +61,12 @@ export class FirebaseService {
       .then((decodedToken) => {
         const exp_date = decodedToken.exp;
         const curr_date = new Date().getTime();
-
-        if (decodedToken.uid !== data.id || exp_date < curr_date) {
+        if (decodedToken.uid !== data.id || exp_date < curr_date / 1000) {
           throw new BadRequestException();
         }
       })
       .catch((error) => {
-        throw new BadRequestException('Access Token Failed');
+        throw new BadRequestException('Access Token Failed' + error);
       });
   }
 }
