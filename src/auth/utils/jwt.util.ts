@@ -13,7 +13,7 @@ export class JWTutil {
 
   get(req: Request) {
     try {
-      var access_token: string;
+      let access_token: string;
       const authorizationHeader = _.get(req, 'headers.authorization');
       if (authorizationHeader && _.includes(authorizationHeader, 'Bearer')) {
         access_token = _.get(req.headers, 'authorization').replace(

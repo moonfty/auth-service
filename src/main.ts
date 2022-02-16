@@ -1,8 +1,8 @@
-import { ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { mongoDbConnectionString, PORT } from './config';
 import { ValidationPipeOptions } from './auth/validation/auth.validation';
 

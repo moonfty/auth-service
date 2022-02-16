@@ -21,11 +21,16 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^8.0.0",
+    "@firebase/app-compat": "^0.1.12",
+    "@nestjs/common": "^8.2.4",
     "@nestjs/core": "^8.0.0",
     "@nestjs/mongoose": "^9.0.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.1.0",
+    "@types/aws-lambda": "^8.10.89",
+    "@types/serverless": "^1.78.40",
+    "@vendia/serverless-express": "^4.5.2",
+    "aws-lambda": "^1.0.7",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "cookie-parser": "^1.4.5",
@@ -36,7 +41,11 @@
     "mongoose": "^6.0.12",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "serverless": "^2.70.0",
+    "serverless-http": "^2.7.0",
+    "serverless-offline": "^8.3.1",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
@@ -56,6 +65,7 @@
     "jest": "^27.0.6",
     "mongodb-memory-server": "6.9.6",
     "prettier": "^2.3.2",
+    "serverless-plugin-include-dependencies": "^5.0.0",
     "supertest": "^6.1.3",
     "swagger-ui-express": "^4.1.6",
     "ts-jest": "^27.0.3",

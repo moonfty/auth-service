@@ -23,7 +23,7 @@ export class AppController {
   ) {}
   public readonly jwtUtil = new JWTutil();
 
-  @Get()
+  @Get('hello')
   getHello(): string {
     return this.appService.getHello();
   }
@@ -33,7 +33,7 @@ export class AppController {
     @Body() data: AuthDto,
     @Res({ passthrough: true }) response: Response,
   ): Promise<any> {
-    var access_token: string;
+    let access_token: string;
     /*
     try {
       const filtered_account = await this.firebaseService.getUser(data);

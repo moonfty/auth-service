@@ -1,0 +1,35 @@
+service: moonfty-auth-serverless
+
+useDotenv: true
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-include-dependencies
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+    CORS_ENABLE: ${env:CORS_ENABLE}
+    PORT: ${env:PORT}
+    JWT_SECRET: ${env:JWT_SECRET}
+    JWT_EXPIRES_IN: ${env:JWT_EXPIRES_IN}
+    JWT_REFRESH_IN: ${env:JWT_REFRESH_IN}
+
+  region: eu-central-1
+
+functions:
+  main:
+    handler: dist/serverless.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!package-lock.json'
