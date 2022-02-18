@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AppService } from './app.service';
-import { AuthDto } from './auth/dtos/auth.dto';
+import { AuthDto, PublicAuthDto } from './auth/dtos/auth.dto';
 import { FirebaseService } from './auth/services/firebase.service';
 import { JWTutil } from './auth/utils/jwt.util';
 
@@ -55,6 +55,28 @@ export class AppController {
       try {
         await this.firebaseService.checkAuthentication(data);
         access_token = await this.jwtUtil.sign(data);
+        response.header('withCredentials', 'include');
+        response.header('Access-Control-Allow-Credentials', 'true');
+        response.send({ access_token: access_token });
+        //return access_token;
+      } catch (error) {
+        throw error;
+      }
+    }
+  }
+
+  @Post('public')
+  async getPublicAccessToken(
+    @Body() data: PublicAuthDto,
+    @Res({ passthrough: true }) response: Response,
+  ): Promise<any> {
+    let access_token: string;
+    if (access_token === null) {
+      throw new NotFoundException('Wrong id');
+    } else {
+      try {
+        await this.firebaseService.checkDevice(data)
+        access_token = await this.jwtUtil.signPublicAccessToken(data);
         response.header('withCredentials', 'include');
         response.header('Access-Control-Allow-Credentials', 'true');
         response.send({ access_token: access_token });

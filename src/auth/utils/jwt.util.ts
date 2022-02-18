@@ -3,10 +3,11 @@ import * as JWT from 'jsonwebtoken';
 import { JWT_SECRET, JWT_EXPIRES_IN, JWT_REFRESH_IN } from '../../config';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as _ from 'lodash';
-import { AuthDto } from '../dtos/auth.dto';
+import { AuthDto, PublicAuthDto } from '../dtos/auth.dto';
 
 @Injectable()
 export class JWTutil {
+
   secret = JWT_SECRET;
   expiresIn = +JWT_EXPIRES_IN;
   refreshIn = +JWT_REFRESH_IN;
@@ -33,6 +34,18 @@ export class JWTutil {
 
   async signAccessToken(data: AuthDto) {
     const payload = { id: data.id, email: data.email, createdAt: Date.now() };
+    const access_token_options = { expiresIn: '2h' };
+    const access_token = new Promise<string>((resolve, reject) => {
+      JWT.sign(payload, this.secret, access_token_options, (error, token) => {
+        if (!error) resolve(token);
+        else reject(error);
+      });
+    });
+    return await access_token;
+  }
+
+  async signPublicAccessToken(public_data: PublicAuthDto) {
+    const payload = { n_token: public_data.n_token };
     const access_token_options = { expiresIn: '2h' };
     const access_token = new Promise<string>((resolve, reject) => {
       JWT.sign(payload, this.secret, access_token_options, (error, token) => {

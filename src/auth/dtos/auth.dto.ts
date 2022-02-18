@@ -3,3 +3,7 @@ export class AuthDto {
   email: string;
   token: string;
 }
+
+export class PublicAuthDto {
+  n_token: string
+}

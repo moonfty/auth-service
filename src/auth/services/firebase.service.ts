@@ -8,7 +8,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import * as _ from 'lodash';
-import { AuthDto } from '../dtos/auth.dto';
+import { AuthDto, PublicAuthDto } from '../dtos/auth.dto';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCny8sRf34cD-SS5eO-8CVoY0Z7DakLJAE',
@@ -68,5 +68,20 @@ export class FirebaseService {
       .catch((error) => {
         throw new BadRequestException('Access Token Failed' + error);
       });
+  }
+
+  async checkDevice(data: PublicAuthDto) {
+    const snapshot = await this.db
+      .collection('admin')
+      .doc('auth_tokens')
+      .get();
+    const devices = snapshot.data();
+    const device = _.find(devices.items, function (token) {
+      return token == data.n_token;
+    });
+    if (device === undefined) {
+      throw new ForbiddenException('No permission');
+    }
+    return device;
   }
 }
