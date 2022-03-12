@@ -27,6 +27,8 @@
     "@nestjs/mongoose": "^9.0.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.1.0",
+    "@nfteyez/sol-rayz": "^0.10.2",
+    "@solana/web3.js": "^1.36.0",
     "@types/aws-lambda": "^8.10.89",
     "@types/serverless": "^1.78.40",
     "@vendia/serverless-express": "^4.5.2",
